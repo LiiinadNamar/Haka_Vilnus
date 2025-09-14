@@ -12,8 +12,8 @@ class ApiService
         $client = DeepSeekClient::build(apiKey:'sk-83ee5c70b6784b34b98aac2647f23fb8', baseUrl:'https://api.deepseek.com/v3', timeout:30, clientType:'guzzle');
 
         $response = $client
-            ->withModel(Models::CODER->value)
-            ->setTemperature(1.0)
+            ->withModel(Models::CHAT->value)
+            ->setTemperature(1)
             ->setResponseFormat('json_object')
             ->query('as json,' . $text)
             ->run();

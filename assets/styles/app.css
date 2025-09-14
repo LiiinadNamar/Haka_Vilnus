@@ -107,7 +107,7 @@ code {
 
 /* Chat Messages */
 .chat-message {
-    max-width: 300px;
+    max-width: 80%; /* Added to ensure messages are not too wide */
     padding: 12px 16px;
     border-radius: var(--radius-lg);
     margin-bottom: 12px;

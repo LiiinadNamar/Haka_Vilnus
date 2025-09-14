@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host.com - Premium Web Hosting Solutions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        .chat-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #28a745;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        .chat-button:hover {
+            transform: scale(1.1);
+        }
+        .chat-modal {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            max-height: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 1001;
+        }
+        .chat-header {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-body {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .pricing-card {
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .pricing-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+        }
+        .pricing-card.featured {
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">Host.com</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item"><a class="btn btn-primary ms-2" href="#signup">Get Started</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">Premium Web Hosting Made Simple</h1>
+            <p class="lead mb-4">Get lightning-fast hosting with 99.9% uptime guarantee and 24/7 expert support</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="#pricing" class="btn btn-light btn-lg">View Plans</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Sales</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Why Choose Host.com?</h2>
+                <p class="lead text-muted">Everything you need to succeed online</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-lightning-charge text-primary display-4 mb-3"></i>
+                            <h5 class="card-title">Lightning Fast</h5>
+                            <p class="card-text">SSD storage and optimized servers for maximum speed and performance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-shield-check text-primary display-4 mb-3"></i>
+                            <h5 class="card-title">Secure & Reliable</h5>
+                            <p class="card-text">Advanced security features and 99.9% uptime guarantee to keep your site safe.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card feature-card h-100 text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-headset text-primary display-4 mb-3"></i>
+                            <h5 class="card-title">24/7 Support</h5>
+                            <p class="card-text">Expert support team available around the clock to help you succeed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Simple, Transparent Pricing</h2>
+                <p class="lead text-muted">Choose the perfect plan for your needs</p>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="card pricing-card h-100">
+                        <div class="card-body text-center p-4">
+                            <h5 class="card-title">Starter</h5>
+                            <h2 class="text-primary">$9.99<span class="fs-6 text-muted">/mo</span></h2>
+                            <ul class="list-unstyled mt-4">
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> 10GB Storage</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> 1 Website</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> Free SSL</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> Email Support</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card pricing-card featured h-100">
+                        <div class="card-body text-center p-4">
+                            <div class="badge bg-primary mb-2">Most Popular</div>
+                            <h5 class="card-title">Professional</h5>
+                            <h2 class="text-primary">$19.99<span class="fs-6 text-muted">/mo</span></h2>
+                            <ul class="list-unstyled mt-4">
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> 50GB Storage</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> 5 Websites</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> Free SSL</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> Priority Support</li>
+                            </ul>
+                            <button class="btn btn-primary w-100">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card pricing-card h-100">
+                        <div class="card-body text-center p-4">
+                            <h5 class="card-title">Enterprise</h5>
+                            <h2 class="text-primary">$49.99<span class="fs-6 text-muted">/mo</span></h2>
+                            <ul class="list-unstyled mt-4">
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> Unlimited Storage</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> Unlimited Websites</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> Free SSL</li>
+                                <li class="mb-2"><i class="bi bi-check text-success"></i> 24/7 Phone Support</li>
+                            </ul>
+                            <button class="btn btn-outline-primary w-100">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Get In Touch</h2>
+                <p class="lead text-muted">Have questions? We're here to help</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="row g-4 text-center">
+                        <div class="col-md-4">
+                            <i class="bi bi-envelope text-primary display-4 mb-3"></i>
+                            <h5>Email Us</h5>
+                            <p class="text-muted">support@host.com</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="bi bi-telephone text-primary display-4 mb-3"></i>
+                            <h5>Call Us</h5>
+                            <p class="text-muted">1-800-HOST-COM</p>
+                        </div>
+                        <div class="col-md-4">
+                            <i class="bi bi-chat-dots text-primary display-4 mb-3"></i>
+                            <h5>Live Chat</h5>
+                            <p class="text-muted">Available 24/7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Host.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <button class="chat-button" onclick="toggleChat()">
+            <i class="bi bi-chat-dots"></i>
+        </button>
+        <div class="chat-modal" id="chatModal">
+            <div class="chat-header">
+                <h6 class="mb-0">Start a Conversation</h6>
+                <button type="button" class="btn-close btn-close-white" onclick="toggleChat()"></button>
+            </div>
+            <div class="chat-body">
+                <!-- Initial Form -->
+                <div id="chatForm">
+                    <div class="mb-3">
+                        <label for="chatName" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="chatName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="chatEmail" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="chatEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="chatTitle" class="form-label">Issue Title</label>
+                        <input type="text" class="form-control" id="chatTitle" placeholder="Brief description of your issue..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="chatMessage" class="form-label">How can we help?</label>
+                        <textarea class="form-control" id="chatMessage" rows="3" placeholder="Describe your issue or question in detail..." required></textarea>
+                    </div>
+                    <button type="button" class="btn btn-success w-100" onclick="startChat()">
+                        <i class="bi bi-send"></i> Start Chat
+                    </button>
+                </div>
+
+                <!-- Chat Messages -->
+                <div id="chatMessages" style="display: none;">
+                    <div id="messagesContainer" style="max-height: 300px; overflow-y: auto; margin-bottom: 15px;">
+                        <!-- Messages will be displayed here -->
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="newMessageInput" class="form-control" placeholder="Type your message..." style="display: none;">
+                        <button class="btn btn-outline-secondary" type="button" onclick="sendNewMessage()" style="display: none;">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentIssueId = null;
+        let pollInterval = null;
+        let lastMessageId = 0;
+
+        function toggleChat() {
+            const modal = document.getElementById('chatModal');
+            modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+
+            // Stop polling if chat is closed
+            if (modal.style.display === 'none' && pollInterval) {
+                clearInterval(pollInterval);
+                pollInterval = null;
+            }
+        }
+
+        function startChat() {
+            const formData = {
+                title: document.getElementById('chatTitle').value,
+                name: document.getElementById('chatName').value,
+                email: document.getElementById('chatEmail').value,
+                message: document.getElementById('chatMessage').value
+            };
+
+            if (!formData.title || !formData.name || !formData.email || !formData.message) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            fetch('/chat/start', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    currentIssueId = data.issueId;
+                    lastMessageId = data.messageId;
+
+                    // Hide form and show chat
+                    document.getElementById('chatForm').style.display = 'none';
+                    document.getElementById('chatMessages').style.display = 'block';
+                    document.getElementById('newMessageInput').style.display = 'block';
+                    document.querySelector('#chatMessages .btn').style.display = 'block';
+
+                    // Update header
+                    document.querySelector('.chat-header h6').textContent = 'Live Chat';
+
+                    // Display first message
+                    addMessage(data.message, true);
+
+                    // Start polling for new messages
+                    startPolling();
+                } else {
+                    alert('Error: ' + (data.error || 'Failed to start chat'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Network error occurred');
+            });
+        }
+
+        function addMessage(content, isCustomer) {
+            const messagesContainer = document.getElementById('messagesContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `mb-2 p-2 rounded ${isCustomer ? 'bg-primary text-white ms-4' : 'bg-light text-dark me-4'}`;
+            messageDiv.style.fontSize = '14px';
+            messageDiv.innerHTML = `
+                <div class="fw-bold">${isCustomer ? 'You' : 'Support'}</div>
+                <div>${content}</div>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function startPolling() {
+            pollInterval = setInterval(() => {
+                fetch(`/chat/${currentIssueId}/messages`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Check for new messages
+                        data.messages.forEach(message => {
+                            if (message.id > lastMessageId && !message.isCustomer) {
+                                addMessage(message.content, false);
+                                lastMessageId = message.id;
+                            }
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching messages:', error);
+                });
+            }, 1000); // Poll every second
+        }
+
+        function sendNewMessage() {
+            const input = document.getElementById('newMessageInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Add message to UI immediately
+            addMessage(message, true);
+            input.value = '';
+
+            // Send to server (create new message)
+            fetch(`/messages/${currentIssueId}/send`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: `content=${encodeURIComponent(message)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    lastMessageId = data.messageId || lastMessageId;
+                } else {
+                    alert('Failed to send message');
+                }
+            })
+            .catch(error => {
+                console.error('Error sending message:', error);
+                alert('Network error occurred');
+            });
+        }
+
+        // Handle Enter key in message input
+        document.addEventListener('DOMContentLoaded', function() {
+            const newMessageInput = document.getElementById('newMessageInput');
+            if (newMessageInput) {
+                newMessageInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendNewMessage();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
