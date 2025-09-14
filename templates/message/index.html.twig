@@ -61,7 +61,7 @@
                                     </div>
                                     
                                     <div class="border-top pt-3">
-                                        <form action="{{ path('app_send_message', {'issueId': issue.id}) }}" method="POST">
+                                        <form id="message-form" action="{{ path('app_send_message', {'issueId': issue.id}) }}" method="POST">
                                             <div class="d-flex gap-2">
                                                 <button type="button" class="btn btn-outline-primary btn-sm" onclick="getAISuggestion()" id="ai-suggest-btn">
                                                     <i class="bi bi-robot"></i> AI Suggest
@@ -135,6 +135,146 @@
     </div>
 
     <script>
+        let lastMessageId = {{ messages|length > 0 ? messages|last.id : 0 }};
+        let pollInterval = null;
+
+        // Start polling for new messages
+        function startPolling() {
+            if (pollInterval) return; // Already polling
+            
+            pollInterval = setInterval(() => {
+                fetch(`/chat/{{ issue.id }}/messages?lastMessageId=${lastMessageId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.hasNewMessages) {
+                        data.messages.forEach(message => {
+                            addMessageToChat(message);
+                            lastMessageId = Math.max(lastMessageId, message.id);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error polling for messages:', error);
+                });
+            }, 2000); // Poll every 2 seconds
+        }
+
+        // Stop polling
+        function stopPolling() {
+            if (pollInterval) {
+                clearInterval(pollInterval);
+                pollInterval = null;
+            }
+        }
+
+        // Add new message to chat
+        function addMessageToChat(message) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `d-flex justify-content-${message.isCustomer ? 'start' : 'end'} mb-3`;
+            messageDiv.innerHTML = `
+                <div class="chat-message ${message.isCustomer ? 'client' : 'support'}">
+                    <div class="message-content">${message.content.replace(/\n/g, '<br>')}</div>
+                    <div class="chat-timestamp">
+                        Message #${message.id} - ${message.isCustomer ? 'Customer' : 'Support'}
+                    </div>
+                </div>
+            `;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // Handle form submission
+        document.getElementById('message-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const content = formData.get('content');
+            
+            if (!content.trim()) {
+                showFlashMessage('Message content cannot be empty', 'error');
+                return;
+            }
+            
+            // Add message to UI immediately
+            const tempMessage = {
+                id: 'temp-' + Date.now(),
+                content: content,
+                isCustomer: false // Assuming internal messages are from support
+            };
+            addMessageToChat(tempMessage);
+            
+            // Clear the form
+            document.getElementById('message-input').value = '';
+            
+            // Send to server
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove temp message
+                    const messagesContainer = document.getElementById('chat-messages');
+                    const tempMessageDiv = messagesContainer.lastElementChild;
+                    if (tempMessageDiv) {
+                        tempMessageDiv.remove();
+                    }
+                    
+                    // Add the real message immediately
+                    const realMessage = {
+                        id: data.messageId,
+                        content: content,
+                        isCustomer: false // Internal messages are from support
+                    };
+                    addMessageToChat(realMessage);
+                    
+                    // Update lastMessageId with the real message ID
+                    lastMessageId = data.messageId;
+                } else {
+                    // Remove temp message on error
+                    const messagesContainer = document.getElementById('chat-messages');
+                    const tempMessageDiv = messagesContainer.lastElementChild;
+                    if (tempMessageDiv) {
+                        tempMessageDiv.remove();
+                    }
+                    showFlashMessage(data.error || 'Failed to send message', 'error');
+                }
+            })
+            .catch(error => {
+                // Remove temp message on error
+                const messagesContainer = document.getElementById('chat-messages');
+                const tempMessageDiv = messagesContainer.lastElementChild;
+                if (tempMessageDiv) {
+                    tempMessageDiv.remove();
+                }
+                console.error('Error sending message:', error);
+                showFlashMessage('Network error occurred while sending message', 'error');
+            });
+        });
+
+        // Start polling when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            startPolling();
+        });
+
+        // Stop polling when page is hidden/unloaded
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopPolling();
+            } else {
+                startPolling();
+            }
+        });
+
+        window.addEventListener('beforeunload', function() {
+            stopPolling();
+        });
+
         function getAISuggestion() {
             const button = document.getElementById('ai-suggest-btn');
             const messageInput = document.getElementById('message-input');

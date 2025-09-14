@@ -85,6 +85,7 @@ final class DashboardController extends AbstractController
     #[Route('/chat/{issueId}/messages', name: 'app_get_chat_messages', methods: ['GET'])]
     public function getChatMessages(
         int $issueId,
+        Request $request,
         IssueRepository $issueRepository,
         MessageRepository $messageRepository
     ): JsonResponse {
@@ -94,7 +95,22 @@ final class DashboardController extends AbstractController
             return new JsonResponse(['error' => 'Issue not found'], 404);
         }
 
-        $messages = $messageRepository->findBy(['Issue' => $issue], ['id' => 'ASC']);
+        $lastMessageId = $request->query->get('lastMessageId', 0);
+        
+        if ($lastMessageId > 0) {
+            // Fetch only new messages
+            $messages = $messageRepository->createQueryBuilder('m')
+                ->where('m.Issue = :issue')
+                ->andWhere('m.id > :lastMessageId')
+                ->setParameter('issue', $issue)
+                ->setParameter('lastMessageId', $lastMessageId)
+                ->orderBy('m.id', 'ASC')
+                ->getQuery()
+                ->getResult();
+        } else {
+            // Fetch all messages
+            $messages = $messageRepository->findBy(['Issue' => $issue], ['id' => 'ASC']);
+        }
 
         $messageData = [];
         foreach ($messages as $message) {
@@ -108,7 +124,8 @@ final class DashboardController extends AbstractController
 
         return new JsonResponse([
             'success' => true,
-            'messages' => $messageData
+            'messages' => $messageData,
+            'hasNewMessages' => count($messageData) > 0
         ]);
     }
 }

@@ -126,7 +126,7 @@ class ProcessingService
         // Set summary
         $summary = trim($response['summary']);
         if (strlen($summary) > 25) {
-            $summary = substr($summary, 0, 25);
+            $summary = substr($summary, 0, 50);
         }
         $issue->setSummary($summary);
 

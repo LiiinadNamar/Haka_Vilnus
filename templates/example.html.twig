@@ -46,7 +46,7 @@
             bottom: 90px;
             right: 20px;
             width: 350px;
-            max-height: 500px;
+            max-height: 700px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -64,7 +64,7 @@
         }
         .chat-body {
             padding: 20px;
-            max-height: 400px;
+            max-height: 600px;
             overflow-y: auto;
         }
         .pricing-card {
@@ -280,8 +280,11 @@
                         <label for="chatMessage" class="form-label">How can we help?</label>
                         <textarea class="form-control" id="chatMessage" rows="3" placeholder="Describe your issue or question in detail..." required></textarea>
                     </div>
-                    <button type="button" class="btn btn-success w-100" onclick="startChat()">
-                        <i class="bi bi-send"></i> Start Chat
+                    <button type="button" class="btn btn-success w-100" id="startChatBtn" onclick="startChat()">
+                        <span id="btnText"><i class="bi bi-send"></i> Start Chat</span>
+                        <span id="btnSpinner" style="display: none;">
+                            <span class="spinner-border spinner-border-sm" role="status"></span> Starting...
+                        </span>
                     </button>
                 </div>
 
@@ -331,6 +334,11 @@
                 return;
             }
 
+            // Show loading spinner
+            document.getElementById('btnText').style.display = 'none';
+            document.getElementById('btnSpinner').style.display = 'inline';
+            document.getElementById('startChatBtn').disabled = true;
+
             fetch('/chat/start', {
                 method: 'POST',
                 headers: {
@@ -360,11 +368,19 @@
                     // Start polling for new messages
                     startPolling();
                 } else {
+                    // Reset button state on error
+                    document.getElementById('btnText').style.display = 'inline';
+                    document.getElementById('btnSpinner').style.display = 'none';
+                    document.getElementById('startChatBtn').disabled = false;
                     alert('Error: ' + (data.error || 'Failed to start chat'));
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
+                // Reset button state on error
+                document.getElementById('btnText').style.display = 'inline';
+                document.getElementById('btnSpinner').style.display = 'none';
+                document.getElementById('startChatBtn').disabled = false;
                 alert('Network error occurred');
             });
         }
