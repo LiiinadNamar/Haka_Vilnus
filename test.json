@@ -1,0 +1,148 @@
+[
+    {
+        "title": "URGENT: Website Down - Error 500",
+        "messages": [
+            {
+                "content": "MY ENTIRE WEBSITE IS DOWN! Customers are calling me and I'm losing sales every minute. It just shows a '500 Internal Server Error'. This is a complete disaster, fix it NOW!",
+                "is_customer": true
+            },
+            {
+                "content": "We are incredibly sorry for this disruption. Our system has automatically detected the issue and our highest-priority team is already working on it. We will provide an update within 15 minutes.",
+                "is_customer": false
+            },
+            {
+                "content": "It's been 20 minutes! Why is it still not fixed? This is unacceptable service. I want a full refund for this month!",
+                "is_customer": true
+            },
+            {
+                "content": "We have identified and resolved the issue. It was caused by a corrupted .htaccess file after a recent plugin update. Your site is now back online. We sincerely apologize for the frustration and the impact on your business. We have issued a 50% credit to your account as a goodwill gesture.",
+                "is_customer": false
+            }
+        ]
+    },
+    {
+        "title": "Cannot Process Payments - Checkout Page Broken",
+        "messages": [
+            {
+                "content": "Hello, my customers are saying they can't complete purchases. The checkout page loads forever and then times out. This is critical!",
+                "is_customer": true
+            },
+            {
+                "content": "Thank you for reporting this. We are investigating your server's resource usage and connection to the payment gateway. We will update you shortly.",
+                "is_customer": false
+            }
+        ]
+    },
+    {
+        "title": "Website is Extremely Slow - Takes 10+ seconds to load",
+        "messages": [
+            {
+                "content": "For the past few hours, my website has been loading incredibly slowly. It's almost unusable for my visitors. Can you check if there's an issue on the server?",
+                "is_customer": true
+            },
+            {
+                "content": "Hello, we've checked your server and found a temporary spike in CPU usage due to a traffic surge. We've optimized a few processes. Could you please check now and confirm if the speed has improved?",
+                "is_customer": false
+            },
+            {
+                "content": "Yes, it's much better now. Thank you for the quick help!",
+                "is_customer": true
+            }
+        ]
+    },
+    {
+        "title": "How do I upload my website files?",
+        "messages": [
+            {
+                "content": "Hi, I just signed up and I'm a bit new to this. I have my HTML files ready. How do I get them onto my server?",
+                "is_customer": true
+            },
+            {
+                "content": "Welcome! You can upload your files using an FTP client like FileZilla. Your FTP credentials were sent in your welcome email. Alternatively, you can use the File Manager in your cPanel control panel. Would you like a link to our step-by-step guide?",
+                "is_customer": false
+            },
+            {
+                "content": "The File Manager in cPanel worked perfectly, thank you!",
+                "is_customer": true
+            }
+        ]
+    },
+    {
+        "title": "Database Connection Error - Site Not Working",
+        "messages": [
+            {
+                "content": "My WordPress site is showing 'Error establishing a database connection'. Everything was fine an hour ago. Please help!",
+                "is_customer": true
+            },
+            {
+                "content": "We are on it! Our monitoring system also caught this. It appears the database service was restarted and encountered a minor corruption. We are running a repair script now.",
+                "is_customer": false
+            },
+            {
+                "content": "The repair is complete and your site is now loading correctly. We apologize for the inconvenience.",
+                "is_customer": false
+            }
+        ]
+    },
+    {
+        "title": "Payment Failed - Card Declined but it shouldn't be",
+        "messages": [
+            {
+                "content": "I just got an email saying my payment failed and my hosting will be suspended! I used the same card last month and it worked. I just checked with my bank and there's no issue on their end. Please fix this immediately before my site goes down!",
+                "is_customer": true
+            },
+            {
+                "content": "We understand your concern. We are looking into the transaction logs. Sometimes this is caused by our fraud prevention system being overly cautious. We will retry the payment and ensure your service is not interrupted.",
+                "is_customer": false
+            }
+        ]
+    },
+    {
+        "title": "SSL Certificate Not Renewing Automatically",
+        "messages": [
+            {
+                "content": "My browser is showing a 'Not Secure' warning. It looks like my SSL certificate expired yesterday. I thought it renewed automatically?",
+                "is_customer": true
+            },
+            {
+                "content": "You are correct, it should auto-renew. There was a glitch in the renewal process for a batch of certificates. We've manually triggered the renewal for yours. It should be active within the next hour. Thank you for your patience.",
+                "is_customer": false
+            }
+        ]
+    },
+    {
+        "title": "Angry: Moved my site and it's FULL of problems!",
+        "messages": [
+            {
+                "content": "I AM FURIOUS. I paid for your 'expert' migration service and now my site is broken! Images are missing, links don't work, and it's slower than my old host. You people are incompetent! I want it fixed NOW or I'm issuing a chargeback and leaving terrible reviews everywhere!",
+                "is_customer": true
+            },
+            {
+                "content": "We are very sorry to hear the migration did not meet expectations. We have assigned a senior technician to your case to review every issue you've mentioned. We will get everything resolved and functioning perfectly. We will also extend your free migration period by 3 months.",
+                "is_customer": false
+            }
+        ]
+    },
+    {
+        "title": "Email is not sending to certain domains",
+        "messages": [
+            {
+                "content": "Hi, my clients are saying they aren't getting my emails. I tested it and it seems I can't send to Gmail or Yahoo addresses. I can receive them fine.",
+                "is_customer": true
+            },
+            {
+                "content": "Thank you for the report. This is often related to DNS records (like SPF/DKIM) that help with email authentication. Let us check your domain's configuration and get this sorted out for you.",
+                "is_customer": false
+            }
+        ]
+    },
+    {
+        "title": "How do I create a subdomain?",
+        "messages": [
+            {
+                "content": "I want to set up a test site at test.mydomain.com. How do I create this subdomain?",
+                "is_customer": true
+            }
+        ]
+    }
+]

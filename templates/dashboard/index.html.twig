@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div id="dashboard-section" class="page-section active">
+            <div class="container-fluid p-4">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-xl-10">
+                        <h1 class="mb-4 fade-in">Ticket Dashboard</h1>
+                        <div id="tickets-container" class="row g-3">
+
+                            <div class="col-12">
+                                <div class="card ticket-card priority-border-1 bg-white">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <!-- ID -->
+                                            <span class="text-muted flex-shrink-0">#1</span>
+
+                                            <!-- Title and Description -->
+                                            <div class="flex-grow-1 min-width-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <h6 class="card-title mb-0 text-truncate">Login Issue</h6>
+                                                    <span class="text-muted">-</span>
+                                                    <p class="card-text text-muted mb-0 text-truncate">User cannot access their account</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Labels -->
+                                            <div class="d-flex gap-2 flex-shrink-0">
+
+                                    <span class="badge bg-secondary label-badge">
+                                        urgent
+                                    </span>
+
+                                                <span class="badge bg-secondary label-badge" >
+                                        login
+                                    </span>
+
+                                            </div>
+
+                                            <!-- Priority circle -->
+                                            <div class="priority-circle priority-1 flex-shrink-0">
+                                                1
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card ticket-card priority-border-3 bg-white">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <!-- ID -->
+                                            <span class="text-muted flex-shrink-0">#2</span>
+
+                                            <!-- Title and Description -->
+                                            <div class="flex-grow-1 min-width-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <h6 class="card-title mb-0 text-truncate">Payment Error</h6>
+                                                    <span class="text-muted">-</span>
+                                                    <p class="card-text text-muted mb-0 text-truncate">Transaction failed during checkout</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Labels -->
+                                            <div class="d-flex gap-2 flex-shrink-0">
+
+                                    <span class="badge bg-secondary label-badge">
+                                        payment
+                                    </span>
+
+                                                <span class="badge bg-secondary label-badge">
+                                        bug
+                                    </span>
+
+                                            </div>
+
+                                            <!-- Priority circle -->
+                                            <div class="priority-circle priority-3 flex-shrink-0">
+                                                3
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card ticket-card priority-border-4 bg-white">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <!-- ID -->
+                                            <span class="text-muted flex-shrink-0">#3</span>
+
+                                            <!-- Title and Description -->
+                                            <div class="flex-grow-1 min-width-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <h6 class="card-title mb-0 text-truncate">Feature Request</h6>
+                                                    <span class="text-muted">-</span>
+                                                    <p class="card-text text-muted mb-0 text-truncate">Add dark mode to mobile app</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Labels -->
+                                            <div class="d-flex gap-2 flex-shrink-0">
+
+                                    <span class="badge bg-secondary label-badge">
+                                        enhancement
+                                    </span>
+
+                                                <span class="badge bg-secondary label-badge">
+                                        mobile
+                                    </span>
+
+                                            </div>
+
+                                            <!-- Priority circle -->
+                                            <div class="priority-circle priority-4 flex-shrink-0">
+                                                4
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="card ticket-card priority-border-2 bg-white">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <!-- ID -->
+                                            <span class="text-muted flex-shrink-0">#4</span>
+
+                                            <!-- Title and Description -->
+                                            <div class="flex-grow-1 min-width-0">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <h6 class="card-title mb-0 text-truncate">Data Export</h6>
+                                                    <span class="text-muted">-</span>
+                                                    <p class="card-text text-muted mb-0 text-truncate">Cannot export customer data</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Labels -->
+                                            <div class="d-flex gap-2 flex-shrink-0">
+
+                                    <span class="badge bg-secondary label-badge">
+                                        data
+                                    </span>
+
+                                                <span class="badge bg-secondary label-badge">
+                                        export
+                                    </span>
+
+                                            </div>
+
+                                            <!-- Priority circle -->
+                                            <div class="priority-circle priority-2 flex-shrink-0">
+                                                2
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

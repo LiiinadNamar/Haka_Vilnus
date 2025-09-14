@@ -1,0 +1,15 @@
+[
+    {
+        "title": "My site is not working",
+        "messages": [
+            {
+                "content": "Hello im trying to reach my site but it is not working, please help",
+                "is_customer": true
+            },
+            {
+                "content": "hello, we are investigating the issue",
+                "is_customer": false
+            }
+        ]
+    }
+]
