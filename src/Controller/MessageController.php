@@ -50,6 +50,7 @@ final class MessageController extends AbstractController
         }
 
         $content = $request->request->get('content');
+        $is_external = filter_var($request->query->get('is_external', false), FILTER_VALIDATE_BOOLEAN);
 
         if (empty($content)) {
             if ($request->isXmlHttpRequest()) {
@@ -62,7 +63,7 @@ final class MessageController extends AbstractController
         $message = new Message();
         $message->setContent($content);
         $message->setIssue($issue);
-        $message->setIsCustomer(true);
+        $message->setIsCustomer($is_external);
         
         $entityManager->persist($message);
         $entityManager->flush();

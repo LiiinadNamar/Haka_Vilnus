@@ -1,0 +1,163 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Label: {{ label.name }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid p-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-8">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <a href="{{ path('app_label_index') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                    <div>
+                        <h1 class="slide-in-left">
+                            <span class="badge me-2">
+                                {{ label.name }}
+                            </span>
+                        </h1>
+                        <p class="text-muted mb-0 slide-in-left">Label Details</p>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Label Information -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Label Information</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <strong class="me-3">Name:</strong>
+                                            <span class="badge" style="background-color: {{ label.color }}; color: white;">
+                                                {{ label.name }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center">
+                                            <strong class="me-3">Color:</strong>
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-preview me-2" style="width: 30px; height: 30px; background-color: {{ label.color }}; border-radius: 5px; border: 1px solid #ddd;"></div>
+                                                <code>{{ label.color }}</code>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div>
+                                            <strong class="d-block mb-2">AI Prompt:</strong>
+                                            <div class="p-3 bg-light rounded">
+                                                {{ label.prompt }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Associated Issues -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Associated Issues</h5>
+                                <span class="badge bg-primary">{{ label.issue|length }}</span>
+                            </div>
+                            <div class="card-body">
+                                {% if label.issue|length > 0 %}
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Title</th>
+                                                    <th>Priority</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for issue in label.issue %}
+                                                    <tr>
+                                                        <td>#{{ issue.id }}</td>
+                                                        <td>
+                                                            <div class="text-truncate" style="max-width: 200px;" title="{{ issue.title }}">
+                                                                {{ issue.title }}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {% if issue.priority %}
+                                                                <span class="badge" style="background-color: {{ issue.priority.color }}; color: white;">
+                                                                    {{ issue.priority.number }}
+                                                                </span>
+                                                            {% else %}
+                                                                <span class="text-muted">No priority</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ path('app_message_index', {'issueId': issue.id}) }}" class="btn btn-outline-primary btn-sm">
+                                                                <i class="bi bi-eye"></i> View
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                {% else %}
+                                    <div class="text-center py-4">
+                                        <i class="bi bi-inbox display-4 text-muted mb-3"></i>
+                                        <p class="text-muted">No issues are currently associated with this label.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="d-flex gap-2 mt-4">
+                    <a href="{{ path('app_label_edit', {'id': label.id}) }}" class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Edit Label
+                    </a>
+                    <button type="button" class="btn btn-danger" onclick="confirmDelete({{ label.id }}, '{{ label.name }}')">
+                        <i class="bi bi-trash"></i> Delete Label
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the label <strong id="labelName"></strong>?</p>
+                    <p class="text-danger"><small>This action cannot be undone and will remove the label from all associated issues.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form id="deleteForm" method="post" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(labelId, labelName) {
+            document.getElementById('labelName').textContent = labelName;
+            document.getElementById('deleteForm').action = '{{ path('app_label_delete', {'id': '__ID__'}) }}'.replace('__ID__', labelId);
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+    </script>
+{% endblock %}

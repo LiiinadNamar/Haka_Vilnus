@@ -8,7 +8,17 @@
             <div class="container-fluid p-4">
                 <div class="row justify-content-center">
                     <div class="col-12 col-xl-10">
-                        <h1 class="mb-4 fade-in">Ticket Dashboard</h1>
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h1 class="fade-in mb-0">Ticket Dashboard</h1>
+                            <div class="d-flex gap-2">
+                                <a href="{{ path('app_label_index') }}" class="btn btn-outline-primary">
+                                    <i class="bi bi-tags"></i> Manage Labels
+                                </a>
+                                <a href="{{ path('app_priority_index') }}" class="btn btn-outline-success">
+                                    <i class="bi bi-flag"></i> Manage Priorities
+                                </a>
+                            </div>
+                        </div>
                         <div id="tickets-container" class="row g-3">
                             {% for issue in issues %}
                             <div class="col-12">

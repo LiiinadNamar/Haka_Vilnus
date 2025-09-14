@@ -27,7 +27,7 @@ class Priority
     /**
      * @var Collection<int, Issue>
      */
-    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'Priority')]
+    #[ORM\OneToMany(targetEntity: Issue::class, mappedBy: 'priority')]
     private Collection $issues;
 
     public function __construct()

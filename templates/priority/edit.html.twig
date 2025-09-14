@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Priority: {{ priority.number }}{% endblock %}
+
+{% block body %}
+    <div class="container-fluid p-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-8">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <a href="{{ path('app_priority_show', {'id': priority.id}) }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
+                    <div>
+                        <h1 class="slide-in-left">
+                            Edit Priority:  
+                            <span class="badge me-2" >
+                                {{ priority.number }}
+                            </span>
+                        </h1>
+                        <p class="text-muted mb-0 slide-in-left">Update priority information</p>
+                    </div>
+                </div>
+
+                <!-- Flash Messages -->
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.number) }}
+                                        {{ form_widget(form.number) }}
+                                        {{ form_errors(form.number) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        {{ form_label(form.color) }}
+                                        {{ form_widget(form.color) }}
+                                        {{ form_errors(form.color) }}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                {{ form_label(form.prompt) }}
+                                {{ form_widget(form.prompt) }}
+                                {{ form_errors(form.prompt) }}
+                                <div class="form-text">
+                                    Describe the condition when this priority should be assigned by AI. Be specific about the types of issues or keywords that should trigger this priority level.
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Update Priority
+                                </button>
+                                <a href="{{ path('app_priority_show', {'id': priority.id}) }}" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancel
+                                </a>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+                <!-- Current Priority Info -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-info-circle"></i> Current Priority Information
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <strong>Associated Issues:</strong>
+                                <span class="badge bg-primary ms-2">{{ priority.issues|length }}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Created:</strong>
+                                <span class="text-muted">Priority ID #{{ priority.id }}</span>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Current Color:</strong>
+                                <div class="d-flex align-items-center">
+                                    <div class="color-preview me-2" style="width: 20px; height: 20px; background-color: {{ priority.color }}; border-radius: 3px; border: 1px solid #ddd;"></div>
+                                    <code>{{ priority.color }}</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

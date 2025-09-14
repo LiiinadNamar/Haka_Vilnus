@@ -414,7 +414,7 @@
             input.value = '';
 
             // Send to server (create new message)
-            fetch(`/messages/${currentIssueId}/send`, {
+            fetch(`/messages/${currentIssueId}/send?is_external=true`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',

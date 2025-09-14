@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Priorities{% endblock %}
+
+{% block body %}
+    <div class="container-fluid p-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-10">
+                <div class="mb-3">
+                    <a href="{{ path('app_dashboard') }}" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <div>
+                        <h1 class="slide-in-left">Priorities Management</h1>
+                        <p class="text-muted mb-0 slide-in-left">Manage AI priorities for issue classification</p>
+                    </div>
+                    <a href="{{ path('app_priority_new') }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Create New Priority
+                    </a>
+                </div>
+
+                <!-- Flash Messages -->
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+
+                {% if priorities|length > 0 %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Number</th>
+                                            <th>Color</th>
+                                            <th>AI Prompt</th>
+                                            <th>Issues Count</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for priority in priorities %}
+                                            <tr>
+                                                <td>
+                                                    <span class="badge me-2 text-black">
+                                                        {{ priority.number }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="color-preview me-2" style="width: 20px; height: 20px; background-color: {{ priority.color }}; border-radius: 3px; border: 1px solid #ddd;"></div>
+                                                        <code>{{ priority.color }}</code>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-truncate" style="max-width: 300px;" title="{{ priority.prompt }}">
+                                                        {{ priority.prompt }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="badge bg-secondary">{{ priority.issues|length }}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group btn-group-sm" role="group">
+                                                        <a href="{{ path('app_priority_show', {'id': priority.id}) }}" class="btn btn-outline-info" title="View">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        <a href="{{ path('app_priority_edit', {'id': priority.id}) }}" class="btn btn-outline-warning" title="Edit">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </a>
+                                                        <button type="button" class="btn btn-outline-danger" title="Delete" onclick="confirmDelete({{ priority.id }}, '{{ priority.number }}')">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="card">
+                        <div class="card-body text-center py-5">
+                            <i class="bi bi-flag display-1 text-muted mb-3"></i>
+                            <h3 class="text-muted">No Priorities Found</h3>
+                            <p class="text-muted mb-4">Get started by creating your first priority for AI classification.</p>
+                            <a href="{{ path('app_priority_new') }}" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i> Create Your First Priority
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete priority <strong id="priorityNumber"></strong>?</p>
+                    <p class="text-danger"><small>This action cannot be undone.</small></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form id="deleteForm" method="post" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete') }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(priorityId, priorityNumber) {
+            document.getElementById('priorityNumber').textContent = priorityNumber;
+            document.getElementById('deleteForm').action = '{{ path('app_priority_delete', {'id': '__ID__'}) }}'.replace('__ID__', priorityId);
+            new bootstrap.Modal(document.getElementById('deleteModal')).show();
+        }
+    </script>
+{% endblock %}

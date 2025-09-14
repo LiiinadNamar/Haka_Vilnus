@@ -28,11 +28,11 @@ class Label
      * @var Collection<int, Issue>
      */
     #[ORM\ManyToMany(targetEntity: Issue::class, inversedBy: 'labels')]
-    private Collection $Issue;
+    private Collection $issue;
 
     public function __construct()
     {
-        $this->Issue = new ArrayCollection();
+        $this->issue = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,13 +81,13 @@ class Label
      */
     public function getIssue(): Collection
     {
-        return $this->Issue;
+        return $this->issue;
     }
 
     public function addIssue(Issue $issue): static
     {
-        if (!$this->Issue->contains($issue)) {
-            $this->Issue->add($issue);
+        if (!$this->issue->contains($issue)) {
+            $this->issue->add($issue);
         }
 
         return $this;
@@ -95,7 +95,7 @@ class Label
 
     public function removeIssue(Issue $issue): static
     {
-        $this->Issue->removeElement($issue);
+        $this->issue->removeElement($issue);
 
         return $this;
     }

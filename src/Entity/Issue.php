@@ -24,7 +24,7 @@ class Issue
     /**
      * @var Collection<int, Label>
      */
-    #[ORM\ManyToMany(targetEntity: Label::class, mappedBy: 'Issue')]
+    #[ORM\ManyToMany(targetEntity: Label::class, mappedBy: 'issue')]
     private Collection $labels;
 
     #[ORM\ManyToOne(inversedBy: 'issues')]
