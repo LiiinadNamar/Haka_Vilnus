@@ -9,7 +9,7 @@ class ApiService
 {
     public function run(string $text): array
     {
-        $client = DeepSeekClient::build(apiKey:'sk-83ee5c70b6784b34b98aac2647f23fb8', baseUrl:'https://api.deepseek.com/v3', timeout:30, clientType:'guzzle');
+        $client = DeepSeekClient::build(apiKey:'', baseUrl:'https://api.deepseek.com/v3', timeout:30, clientType:'guzzle');
 
         $response = $client
             ->withModel(Models::CHAT->value)

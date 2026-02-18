@@ -11,7 +11,7 @@
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h1 class="fade-in mb-0">Ticket Dashboard</h1>
                             <div class="d-flex gap-2">
-                                <a href="{{ path('app_label_index') }}" class="btn btn-outline-primary">
+                                <a href="{{ path('app_label_index') }}" class="btn btn-outline-success">
                                     <i class="bi bi-tags"></i> Manage Labels
                                 </a>
                                 <a href="{{ path('app_priority_index') }}" class="btn btn-outline-success">
@@ -34,8 +34,7 @@
                                                 <div class="d-flex align-items-center gap-2">
                                                     <h6 class="card-title mb-0 text-truncate">{{ issue.title }}</h6>
                                                     {% if issue.summary %}
-                                                    <span class="text-muted">-</span>
-                                                    <p class="card-text text-muted mb-0 text-truncate">{{ issue.summary }}</p>
+                                                        <p class="card-text text-muted mb-0 text-truncate " style="font-size: 12px">{{ issue.summary|length > 50 ? issue.summary|slice(0, 40) ~ '...' : issue.summary }}</p>
                                                     {% endif %}
                                                 </div>
                                             </div>

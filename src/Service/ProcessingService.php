@@ -94,14 +94,14 @@ class ProcessingService
         $prompt .= "Return a JSON object with exactly these fields:\n";
         $prompt .= "{\n";
         $prompt .= "  \"priority\": <number>,\n";
-        $prompt .= "  \"summary\": \"<25 character summary>\",\n";
+        $prompt .= "  \"summary\": \"<150 character summary>\",\n";
         $prompt .= "  \"labels\": [\"<label1>\", \"<label2>\"]\n";
         $prompt .= "}\n\n";
 
         $prompt .= "## INSTRUCTIONS\n";
         $prompt .= "1. Analyze the customer's issue and messages\n";
         $prompt .= "2. Assign the most appropriate priority number based on the rules\n";
-        $prompt .= "3. Create a concise 25-character summary of the issue\n";
+        $prompt .= "3. Create a concise 150-character summary of the issue\n";
         $prompt .= "4. Apply only relevant labels that match the conditions\n";
         $prompt .= "5. If no labels match, return an empty array for labels\n";
         $prompt .= "6. Respond with valid JSON only, no additional text\n";
@@ -125,9 +125,9 @@ class ProcessingService
 
         // Set summary
         $summary = trim($response['summary']);
-        if (strlen($summary) > 25) {
-            $summary = substr($summary, 0, 50);
-        }
+//        if (strlen($summary) > 25) {
+//            $summary = substr($summary, 0, 50);
+//        }
         $issue->setSummary($summary);
 
         // Set labels

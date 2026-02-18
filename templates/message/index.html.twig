@@ -14,7 +14,7 @@
                         <div>
                             <h1 id="ticket-detail-title" class="slide-in-left">Ticket #{{ issue.id }} - {{ issue.title }}</h1>
                             {% if issue.summary %}
-                                <p id="ticket-detail-description" class="text-muted mb-0 slide-in-left">{{ issue.summary }}</p>
+{#                                <p id="ticket-detail-description" class="text-muted mb-0 slide-in-left">{{ issue.summary }}</p>#}
                             {% endif %}
                         </div>
                     </div>
@@ -40,8 +40,9 @@
                                 <div class="card-header">
                                     <h5 class="card-title mb-0">Chat</h5>
                                 </div>
-                                <div class="card-body d-flex flex-column">
-                                    <div id="chat-messages" class="flex-grow-1 overflow-auto mb-3" style="max-height: 400px;">
+
+                                <div class="card-body d-flex flex-column" style="height: 800px;">
+                                    <div id="chat-messages" class="flex-grow-1 overflow-auto mb-3" style="max-height: 800px;">
                                         {% if messages|length > 0 %}
                                             {% for message in messages %}
                                                 <div class="d-flex justify-content-{{ message.isCustomer ? 'start' : 'end' }} mb-3">
@@ -59,7 +60,7 @@
                                             </div>
                                         {% endif %}
                                     </div>
-                                    
+
                                     <div class="border-top pt-3">
                                         <form id="message-form" action="{{ path('app_send_message', {'issueId': issue.id}) }}" method="POST">
                                             <div class="d-flex gap-2">
@@ -90,15 +91,15 @@
                                             <div class="row g-2">
                                                 <div class="col-4"><strong>ID:</strong></div>
                                                 <div class="col-8">#{{ issue.id }}</div>
-                                                
+
                                                 <div class="col-4"><strong>Title:</strong></div>
                                                 <div class="col-8">{{ issue.title }}</div>
-                                                
+
                                                 {% if issue.summary %}
                                                 <div class="col-4"><strong>Summary:</strong></div>
                                                 <div class="col-8">{{ issue.summary }}</div>
                                                 {% endif %}
-                                                
+
                                                 <div class="col-4"><strong>Priority:</strong></div>
                                                 <div class="col-8">
                                                     {% if issue.priority %}
@@ -109,7 +110,7 @@
                                                         <span class="text-muted">No priority assigned</span>
                                                     {% endif %}
                                                 </div>
-                                                
+
                                                 <div class="col-4"><strong>Labels:</strong></div>
                                                 <div class="col-8">
                                                     {% for label in issue.labels %}
@@ -118,7 +119,7 @@
                                                         </span>
                                                     {% endfor %}
                                                 </div>
-                                                
+
                                                 <div class="col-4"><strong>Messages:</strong></div>
                                                 <div class="col-8">{{ messages|length }}</div>
                                             </div>
@@ -141,7 +142,7 @@
         // Start polling for new messages
         function startPolling() {
             if (pollInterval) return; // Already polling
-            
+
             pollInterval = setInterval(() => {
                 fetch(`/chat/{{ issue.id }}/messages?lastMessageId=${lastMessageId}`)
                 .then(response => response.json())
@@ -187,15 +188,15 @@
         // Handle form submission
         document.getElementById('message-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const formData = new FormData(this);
             const content = formData.get('content');
-            
+
             if (!content.trim()) {
                 showFlashMessage('Message content cannot be empty', 'error');
                 return;
             }
-            
+
             // Add message to UI immediately
             const tempMessage = {
                 id: 'temp-' + Date.now(),
@@ -203,10 +204,10 @@
                 isCustomer: false // Assuming internal messages are from support
             };
             addMessageToChat(tempMessage);
-            
+
             // Clear the form
             document.getElementById('message-input').value = '';
-            
+
             // Send to server
             fetch(this.action, {
                 method: 'POST',
@@ -224,7 +225,7 @@
                     if (tempMessageDiv) {
                         tempMessageDiv.remove();
                     }
-                    
+
                     // Add the real message immediately
                     const realMessage = {
                         id: data.messageId,
@@ -232,7 +233,7 @@
                         isCustomer: false // Internal messages are from support
                     };
                     addMessageToChat(realMessage);
-                    
+
                     // Update lastMessageId with the real message ID
                     lastMessageId = data.messageId;
                 } else {
@@ -278,11 +279,11 @@
         function getAISuggestion() {
             const button = document.getElementById('ai-suggest-btn');
             const messageInput = document.getElementById('message-input');
-            
+
             // Show loading state
             button.disabled = true;
             button.innerHTML = '<i class="bi bi-hourglass-split"></i> Getting suggestion...';
-            
+
             fetch('{{ path('app_ai_suggest', {'issueId': issue.id}) }}', {
                 method: 'POST',
                 headers: {
@@ -311,7 +312,7 @@
                 button.innerHTML = '<i class="bi bi-robot"></i> AI Suggest';
             });
         }
-        
+
         function showFlashMessage(message, type) {
             // Create alert element
             const alertDiv = document.createElement('div');
@@ -321,11 +322,11 @@
                 ${message}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             `;
-            
+
             // Insert after the header
             const header = document.querySelector('.d-flex.align-items-center.gap-3.mb-4');
             header.parentNode.insertBefore(alertDiv, header.nextSibling);
-            
+
             // Auto-dismiss after 5 seconds
             setTimeout(() => {
                 if (alertDiv.parentNode) {
