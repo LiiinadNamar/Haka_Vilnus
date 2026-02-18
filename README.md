@@ -2,6 +2,14 @@
 
 > Built at **Cursor AI Hackathon** in Vilnius.
 
+## Team
+
+The work was carried out by a team of four people:
+
+- **Gurban Shukurov** — [linkedin.com/in/gurban-shukurov](https://linkedin.com/in/gurban-shukurov)
+- **Ignas Celiešius** — [linkedin.com/in/ignas-celiesius](https://linkedin.com/in/ignas-celiesius)
+- **Mike Tsitsinovsky** — [linkedin.com/in/mikael-titinovskii](https://linkedin.com/in/mikael-titinovskii) 
+
 A customer support system with AI-powered ticket processing.
 
 ## What it does
